@@ -1,112 +1,130 @@
-# 站点信息
-site_name: "Mkdocs 一键部署"
-site_description: "在 Netlify 上快速部署 Mkdocs"
-site_author: "Jonbgua"
-site_url: "https://mkdocs.jonbgua.com/"
 docs_dir: "docs"
+site_name: 安防知识
+site_description: 安防视频监控知识
+site_author: 天一生水
+site_url: !ENV SITE_URL
+repo_name: 'littleyz/ipc-docs'
+repo_url: 'https://github.com/littleyz/ipc-docs'
 
 # Copyright
-copyright: "&copy; 2022 Jonbgua"
+copyright: "Copyright &copy; anfangzhishi.com"
 
-# Material 主题设置
 theme:
-  name: "material"
-  language: "zh"
-  shortcuts:
-    help: 191 # ?
-    next: 78 # n
-    previous: 80 # p
-    search: 83 # s
-  # 颜色: https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/
+  name: material
+  custom_dir: overrides
+  icon:
+    repo: fontawesome/brands/github 
+  logo: https://cdn.ipc.name/wp-content/uploads/2021/10/cropped-logo-t.png
+  favicon: 'assets/smartdns.png'
+  language: 'zh'
+  include_sidebar: false
   palette:
-    primary: "white"    # 主色
-    accent: "red"    # 强调色
-    scheme: preference
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/link
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: green
+      accent: green
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off
+        name: Switch to system preference
   features:
-    - tabs
+    - navigation.path
+    # - navigation.prune
+    # - navigation.instant
+    - navigation.indexes
+    # - navigation.tabs
+    # - navigation.tabs.sticky
+    # - toc.follow
+    # - content.code.copy
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    # - content.code.select
+    # - content.footnote.tooltips
+    # - content.tabs.link
+    - content.tooltips
+    # - header.autohide
+    # - navigation.footer
+    # - navigation.indexes
+    # - navigation.instant
+    # - navigation.instant.prefetch
+    # - navigation.instant.progress
+    # - navigation.prune
+    # - navigation.sections
     - navigation.tabs
-    - navigation.tabs.sticky
-    - search.suggest
+    # - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
     - search.highlight
     - search.share
-  font:
-    text: Noto Sans
-    code: Source Code Pro
+    - search.suggest
+    - toc.follow
+    # - toc.integrate
 
-# 扩展 / Extensions
-markdown_extensions:
-  - admonition
-  - md_in_html
-  - codehilite:
-      guess_lang: false
-  - def_list
-  - footnotes
-  - meta
-  - toc:
-      permalink: true
-  - pymdownx.arithmatex:
-      generic: true
-  - pymdownx.caret
-  - pymdownx.critic
-  - pymdownx.details
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji ''
-      emoji_generator: !!python/name:materialx.emoji.to_svg ''
-  - pymdownx.highlight
-  - pymdownx.inlinehilite
-  - pymdownx.keys
-  - pymdownx.magiclink
-  - pymdownx.mark
-  - pymdownx.superfences:
-      custom_fences:
-      - name: mermaid
-        class: mermaid
-        format: !!python/name:pymdownx.superfences.fence_code_format ''
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.tilde
-
-extra_javascript:
-  # 解密后重载 JS 脚本要用到 jQuery
-  - 'https://lib.baomitu.com/jquery/3.6.0/jquery.min.js'
-  - 'https://lib.baomitu.com/pangu/4.0.7/pangu.min.js'
-  - 'js/config.js'
-  - 'https://polyfill.io/v3/polyfill.min.js?features=es6'
-  - 'https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.min.js'
 
 plugins:
-  - search:
-      lang:
-        - ja
-        - en
-  - minify:
-      minify_html: true
-  - mkdocs-jupyter
-  - encryptcontent:
-      # global_password: "GLOBAL_PASSWORD"
-      # remember_password: false
-      reload_scripts:
-        - '/js/config.js'
-    
+  - search
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  generator: false
+
+markdown_extensions:
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
-  - 首页:
-    - index.md
-    - 常见问题速查: help.md
-    - mkdocs-help.md
-  - 版块:
-    - section/article.md
-    - 子版块:
-      - section/subsection/article.md    
-  - Jupyter 支持:
-    - "jupyter/index.md"
-    - "jupyter/Animations-Using-clear-output.ipynb"
-    - "jupyter/Cell-Magics.ipynb"
-  - 插件:
-    - "plugins/latex.md"
-    - 文章加密:
-      - "plugins/encrypt.md"
-      - "plugins/encrypt-latex.md"
-
-  
-  
+  - 首页: 'index.md'
+  - 摄像机方案: 
+    - 模组: 'ipc/module/list.md'
+    - SoC:
+      - 联咏Novatek: 'ipc/soc/nt.md'
+      - 智源Grain Media: 'ipc/soc/gm.md'
+      - 晨星Mstar: 'ipc/soc/mstar.md'
+      - 星宸SigmaStar: 'ipc/soc/sstar.md'
+      - 海思Hisilicon: 'ipc/soc/hi.md'
+      - 富瀚Fullhan: 'ipc/soc/fh.md'
+      - 安凯Anyka: 'ipc/soc/ak.md'
+      - 国科Goke: 'ipc/soc/gk.md'
+      - 君正ingenic: 'ipc/soc/t.md'
+      - 安霸Ambarella: 'ipc/soc/a.md'
+      - 德州仪器Ti: 'ipc/soc/ti.md'
+      - 瑞昱Realtek: 'ipc/soc/rt.md'
+      - 瑞芯微Rockchip: 'ipc/soc/rk.md'
+      - 齐感SensLab: 'ipc/soc/qg.md'
+      - 雄迈Xiongmai: 'ipc/soc/xm.md'
+      - 爱芯元智Axera: 'ipc/soc/ax.md'
+    - 传感器: 'ipc/sensor/sony.md'
+    - ISP: 'ipc/isp/asus.md'
+    - Wi-Fi: 'ipc/wifi/install/wsl.md'
+  - 安防厂商:
+    - 基本配置: 'config/basic-config.md'
+    - 服务端配置: 'config/server-config.md'
+    - 缓存设置: 'config/cache.md'
+    - 屏蔽广告: 'config/ad-block.md'
+    - 双栈优选: 'config/dualstack.md'
+    - 禁用IPV6: 'config/block-ipv6.md'
+  - 资料下载: 'configuration.md'
+  - 关于: 'faq.md'
